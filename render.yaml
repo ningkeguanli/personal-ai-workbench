@@ -1,0 +1,21 @@
+# Render 免费测试部署配置｜需将整个项目根目录上传到 GitHub 私有仓库
+# 本模板只建立 Render Web Service，不建立会在30天到期的 Render 免费数据库。
+services:
+  - type: web
+    name: personal-ai-workbench-test
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run typecheck && npm run build
+    startCommand: npm run db:migrate && npm run start
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false
+      - key: APP_PASSWORD
+        sync: false
+      - key: APP_SESSION_SECRET
+        generateValue: true
+# OPENAI_API_KEY 暂不配置，先验证登录/客户/项目/数据保存。
+# 真实AI接入为独立步骤，需要有合法API账号和预算。

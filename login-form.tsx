@@ -1,0 +1,5 @@
+"use client";
+import {useState,type FormEvent} from 'react';import {useRouter} from 'next/navigation';
+export default function LoginForm(){const [password,setPassword]=useState(''),[pending,setPending]=useState(false),[error,setError]=useState('');const router=useRouter();
+async function submit(e:FormEvent){e.preventDefault();setError('');setPending(true);try{const r=await fetch('/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password})});const data=await r.json();if(!r.ok)throw new Error(data.message||'登录失败');router.replace('/today');router.refresh()}catch(e){setError(e instanceof Error?e.message:'登录失败')}finally{setPending(false)}}
+return <form onSubmit={submit} className="formStack"><label htmlFor="pw">访问密码</label><input id="pw" autoComplete="current-password" type="password" value={password} onChange={e=>setPassword(e.target.value)} required/><button type="submit" className="btn primary" disabled={pending}>{pending?'登录中…':'登录工作台'}</button>{error&&<p className="errorText">{error}</p>}</form>}

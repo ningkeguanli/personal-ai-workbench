@@ -1,0 +1,1 @@
+export default function Files(){return <><div className="pageHeader"><div><h1>资料与成果</h1><p className="muted">文件、知识、方案、报告和书籍</p></div></div><section className="workSection"><h2>建设状态</h2><p className="subtleText">此模块已纳入V3.1完整功能基线，但本批工程尚未接入对象存储、文档编辑和正式文件导出。当前不提供虚假的上传或生成功能。</p></section></>}
